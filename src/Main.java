@@ -1,5 +1,8 @@
+import blackJack.Deck;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Deck deck = new Deck();
+        System.out.println(deck);
     }
 }
