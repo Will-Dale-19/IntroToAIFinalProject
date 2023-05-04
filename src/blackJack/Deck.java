@@ -1,7 +1,6 @@
 package blackJack;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
+import java.util.*;
 
 import blackJack.Card.*;
 
@@ -26,7 +25,19 @@ public class Deck {
         returnList.add(new Card(suit, "K"));
         returnList.add(new Card(suit, "A"));
 
+        Collections.shuffle(returnList);
+
         return returnList;
+    }
+
+    public void shuffleDeck(){
+        ArrayList<Card> shuffledDeck = new ArrayList<>(this.deck);
+
+        Collections.shuffle(shuffledDeck);
+
+        this.deck = new ArrayDeque<>();
+
+        this.deck.addAll(shuffledDeck);
     }
 
     @Override
