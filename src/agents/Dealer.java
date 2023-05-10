@@ -6,20 +6,32 @@ import java.util.ArrayList;
 
 public class Dealer extends Agent {
 
+    private boolean takingTurn = false;
+
     public Dealer() {
+        this.canPlay = true;
         this.standing = false;
         this.cards = new ArrayList<>();
     }
 
+    public void flipCard() {
+        System.out.println("The dealer flips over a " + this.cards.get(0) + "!");
+        takingTurn = true;
+    }
+
     @Override
     public char takeTurn() {
-        System.out.print("It's the dealer's turn. ");
+        System.out.println("It's the dealer's turn.");
+        if (!takingTurn) {
+            flipCard();
+            printCards();
+        }
         if (!isStanding()) {
             char move = (score() < 17) ? 'h' : 's';
             if (move == 'h') {
-                System.out.println("\nThe dealer has decided to hit.");
+                System.out.println("The dealer has decided to hit.");
             } else {
-                System.out.println("\nThe dealer has decided to stand.");
+                System.out.println("The dealer has decided to stand.");
             }
             return move;
         } else {
@@ -45,11 +57,16 @@ public class Dealer extends Agent {
 
     @Override
     public void printCards() {
-        System.out.print("The dealers cards: ?? ");
+        System.out.print("The dealers cards: " + (takingTurn ? this.cards.get(0) + " " : "?? "));
         for (int i = 1; i < this.cards.size(); i++) {
             System.out.print(this.cards.get(i) + " ");
         }
         System.out.println();
+    }
+
+    @Override
+    public String getName() {
+        return "Dealer";
     }
 
     @Override

@@ -8,8 +8,9 @@ public class Main {
     public static void main(String[] args) {
         boolean continuePlaying = true;
         while (continuePlaying) {
-            Blackjack game = new Blackjack(new Player());
-            boolean gamePlaying = game.startGame();
+            Blackjack game = new Blackjack(new Player("Player"));
+            game.startGame();
+            boolean gamePlaying = true;
             while (gamePlaying) {
                 gamePlaying = game.round();
             }

@@ -8,6 +8,7 @@ public abstract class Agent {
 
     protected boolean standing;
     protected ArrayList<Card> cards;
+    protected boolean canPlay;
 
     public int score() {
         int score = 0;
@@ -32,6 +33,14 @@ public abstract class Agent {
         this.standing = standing;
     }
 
+    public boolean canPlay() {
+        return this.canPlay;
+    }
+
+    public void setCanPlay(boolean canPlay) {
+        this.canPlay = canPlay;
+    }
+
     public boolean isStanding() {
         return this.standing;
     }
@@ -47,4 +56,6 @@ public abstract class Agent {
     public abstract void tie();
 
     public abstract void printCards();
+
+    public abstract String getName();
 }

@@ -7,18 +7,25 @@ import java.util.Scanner;
 
 public class Player extends Agent {
 
-    public Player() {
+    private String name;
+
+    public Player(String name) {
+        this.canPlay = true;
+        this.name = name;
         this.standing = false;
         this.cards = new ArrayList<>();
     }
 
-
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public char takeTurn() {
-        System.out.print("\nIt's your turn. ");
+        System.out.print("\nIt's " + this.name + "'s turn. ");
         if (!isStanding()) {
-            System.out.println("What would you like to do?");
+            System.out.println("What would they like to do?");
             Scanner in = new Scanner(System.in);
             boolean loop = true;
             char move = ' ';
@@ -34,14 +41,14 @@ public class Player extends Agent {
             }
             return move;
         } else {
-            System.out.println("You are standing.");
+            System.out.println("They are standing.");
             return ' ';
         }
     }
 
     @Override
     public void printCards() {
-        System.out.print("Your cards: ");
+        System.out.print(this.name + "'s cards: ");
         for (Card card : cards) {
             System.out.print(card + " ");
         }
@@ -50,21 +57,22 @@ public class Player extends Agent {
 
     @Override
     public void win() {
-        System.out.println("You have won!");
+        System.out.println(this.name + " has won!");
     }
 
     @Override
     public void lose() {
-        System.out.println("You have lost!");
+        System.out.println(this.name + " has lost!");
     }
 
     @Override
     public void tie() {
-        System.out.println("You tied with the dealer!");
+        System.out.println(this.name + " tied with the dealer!");
     }
 
     @Override
     public void printCardDrawn() {
-        System.out.println("You drew a " + this.cards.get(this.cards.size() - 1));
+        System.out.println("\n" + this.name + " drew a " + this.cards.get(this.cards.size() - 1));
+        System.out.println();
     }
 }
