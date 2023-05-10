@@ -14,6 +14,30 @@ public class Deck {
         }
     }
 
+    public Card dealTopCard() {
+        return deck.removeFirst();
+    }
+
+    public Card[] dealTopCards(int i) {
+        Card[] cards = new Card[i];
+        for (int x = 0; x < i; x++) {
+            cards[x] = dealTopCard();
+        }
+        return cards;
+    }
+
+    public Card dealBottomCard() {
+        return deck.removeLast();
+    }
+
+    public Card[] dealBottomCards(int i) {
+        Card[] cards = new Card[i];
+        for (int x = 0; x < i; x++) {
+            cards[x] = dealBottomCard();
+        }
+        return cards;
+    }
+
     private ArrayList<Card> buildSuit(Suit suit){
         ArrayList<Card> returnList = new ArrayList<>();
         for(int i = 2; i < 11; i++){
