@@ -9,5 +9,8 @@ public abstract class State {
     protected abstract void calculateValue();
 
     @Override
+    public abstract boolean equals(Object o);
+
+    @Override
     public abstract int hashCode();
 }
