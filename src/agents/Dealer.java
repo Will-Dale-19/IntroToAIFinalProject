@@ -8,12 +8,6 @@ public class Dealer extends Agent {
 
     private boolean takingTurn = false;
 
-    public Dealer() {
-        this.canPlay = true;
-        this.standing = false;
-        this.cards = new ArrayList<>();
-    }
-
     public void flipCard() {
         System.out.println("The dealer flips over a " + this.cards.get(0) + "!");
         takingTurn = true;
@@ -53,6 +47,15 @@ public class Dealer extends Agent {
     @Override
     public void tie() {
         System.out.println();
+    }
+
+    @Override
+    public void react() {
+        if (!standing) {
+            System.out.println("Dealer was dealt a " + this.cards.get(this.cards.size() - 1));
+        } else {
+            System.out.println("Dealer is standing.");
+        }
     }
 
     @Override

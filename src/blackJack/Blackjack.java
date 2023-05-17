@@ -61,8 +61,9 @@ public class Blackjack {
                         break;
                 }
             }
+            agent.react();
         }
-        if (this.agents.stream().allMatch(x -> x.isStanding() || x.score() >= 21)) {
+        if (this.agents.stream().allMatch(x -> x.isStanding() || x.score() >= 21 || !x.canPlay())) {
             this.dealer.printCards();
             char move = this.dealer.takeTurn();
             switch (move) {

@@ -7,13 +7,10 @@ import java.util.Scanner;
 
 public class Player extends Agent {
 
-    private String name;
+    private final String name;
 
     public Player(String name) {
-        this.canPlay = true;
         this.name = name;
-        this.standing = false;
-        this.cards = new ArrayList<>();
     }
 
     @Override
@@ -43,6 +40,15 @@ public class Player extends Agent {
         } else {
             System.out.println("They are standing.");
             return ' ';
+        }
+    }
+
+    @Override
+    public void react() {
+        if (!standing) {
+            System.out.println("Player was dealt a " + this.cards.get(this.cards.size() - 1));
+        } else {
+            System.out.println("Player is standing.");
         }
     }
 

@@ -21,7 +21,9 @@ public class QTable<S extends State> {
     }
 
     public void addNewState(S toAdd) {
-        this.qTable.put(toAdd, List.of(new Hit(), new Stand()));
+        if (!this.qTable.containsKey(toAdd)) {
+            this.qTable.put(toAdd, List.of(new Hit(), new Stand()));
+        }
     }
 
     public void updateReward(S toUpdate, double delta) {

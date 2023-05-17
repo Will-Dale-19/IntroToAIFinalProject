@@ -32,7 +32,7 @@ public abstract class State {
         int score = this.hand.stream()
                 .map(Card::getValue)
                 .reduce(Integer::sum)
-                .orElseThrow();
+                .orElse(0);
         if (score > 21) {
             for (int i = 0; i < this.hand.size() && score > 21; i++) {
                 if (this.hand.get(i).getValue() == 11) {

@@ -3,12 +3,20 @@ package agents;
 import blackJack.Card;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Agent {
 
     protected boolean standing;
-    protected ArrayList<Card> cards;
+    protected List<Card> cards;
     protected boolean canPlay;
+
+    public Agent() {
+        this.cards = new LinkedList<>();
+        this.canPlay = true;
+        this.standing = false;
+    }
 
     public int score() {
         int score = 0;
@@ -44,6 +52,8 @@ public abstract class Agent {
     public boolean isStanding() {
         return this.standing;
     }
+
+    public abstract void react();
 
     public abstract char takeTurn();
 
