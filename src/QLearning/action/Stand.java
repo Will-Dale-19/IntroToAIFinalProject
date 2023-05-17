@@ -1,6 +1,5 @@
-package QLearning;
+package QLearning.action;
 
-import QLearning.action.Action;
 
 public class Stand implements Action {
     char action;
