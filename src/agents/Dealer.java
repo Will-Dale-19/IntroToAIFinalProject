@@ -51,11 +51,6 @@ public class Dealer extends Agent {
 
     @Override
     public void react() {
-        if (!standing) {
-            System.out.println("Dealer was dealt a " + this.cards.get(this.cards.size() - 1));
-        } else {
-            System.out.println("Dealer is standing.");
-        }
     }
 
     @Override
@@ -75,5 +70,19 @@ public class Dealer extends Agent {
     @Override
     public void printCardDrawn() {
         System.out.println("The dealer drew a " + this.cards.get(this.cards.size() - 1));
+    }
+
+    /**
+     * This method gets the card that would be visible to the other players while they take their turn.
+     * @return A card
+     */
+    public Card getVisibleCard() {
+        return this.cards.get(1);
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.takingTurn = false;
     }
 }

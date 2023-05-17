@@ -13,9 +13,7 @@ public abstract class Agent {
     protected boolean canPlay;
 
     public Agent() {
-        this.cards = new LinkedList<>();
-        this.canPlay = true;
-        this.standing = false;
+        reset();
     }
 
     public int score() {
@@ -68,4 +66,10 @@ public abstract class Agent {
     public abstract void printCards();
 
     public abstract String getName();
+
+    public void reset() {
+        this.cards = new LinkedList<>();
+        this.canPlay = true;
+        this.standing = false;
+    }
 }

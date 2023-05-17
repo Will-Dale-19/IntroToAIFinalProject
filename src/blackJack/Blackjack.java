@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Blackjack {
-    private final Deck deck;
+    private Deck deck;
     private final ArrayList<Agent> agents = new ArrayList<>();
     private final Dealer dealer;
 
@@ -18,15 +18,24 @@ public class Blackjack {
     }
 
     public void startGame() {
+        resetGame();
+        for (Agent agent : this.agents) {
+            agent.addCard(this.deck.dealTopCard());
+        }
+        dealer.addCard(this.deck.dealTopCard());
+        for (Agent agent : this.agents) {
+            agent.addCard(this.deck.dealTopCard());
+        }
+        dealer.addCard(this.deck.dealTopCard());
+    }
 
+    private void resetGame() {
+        this.deck = new Deck();
+        this.deck.shuffleDeck();
         for (Agent agent : this.agents) {
-            agent.addCard(this.deck.dealTopCard());
+            agent.reset();
         }
-        dealer.addCard(this.deck.dealTopCard());
-        for (Agent agent : this.agents) {
-            agent.addCard(this.deck.dealTopCard());
-        }
-        dealer.addCard(this.deck.dealTopCard());
+        this.dealer.reset();
     }
 
     public boolean round() {
@@ -134,5 +143,21 @@ public class Blackjack {
                 agent.win();
             }
         }
+    }
+
+    /**
+     * This method returns the dealer's visible card.
+     * @return A Card
+     */
+    public Card getDealerCard() {
+        return dealer.getVisibleCard();
+    }
+
+    /**
+     * This method adds agents to the game.
+     * @param agents Any number of agents
+     */
+    public void addAgents(Agent... agents) {
+        this.agents.addAll(Arrays.asList(agents));
     }
 }

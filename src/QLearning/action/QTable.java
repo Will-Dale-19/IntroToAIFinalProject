@@ -10,10 +10,9 @@ import java.util.List;
 
 public class QTable<S extends State> {
     private final HashMap<S, List<Action>> qTable = new HashMap<>();
-    private final double EPSILON;
 
-    public QTable(double epsilon){
-        this.EPSILON = epsilon;
+    public QTable() {
+
     }
 
     public boolean contains(S object) {
@@ -32,15 +31,19 @@ public class QTable<S extends State> {
                 .forEach((s) -> s.updateReward(delta));
     }
 
-    public Action get(S key) {
-        if (Math.random() > EPSILON) {
-            return this.qTable.get(key)
-                    .stream()
-                    .max((a1, a2) -> (int) (a1.getActionValue() - a2.getActionValue()))
-                    .orElseThrow();
-        } else {
-            List<Action> actions = this.qTable.get(key);
-            return actions.get((int) (Math.random() * actions.size()));
+    public List<Action> get(S key) {
+        return this.qTable.get(key);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("States").append(":\t").append("Hit, Stand").append("\n");
+        for (S state : this.qTable.keySet()) {
+            List<Action> localActions = this.qTable.get(state);
+            s.append(state).append(":\t").append(localActions.get(0).getActionValue())
+                    .append(", ").append(localActions.get(1).getActionValue()).append("\n");
         }
+        return s.toString();
     }
 }

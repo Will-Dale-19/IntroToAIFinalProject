@@ -16,4 +16,14 @@ public class CompetitiveState extends State {
     public int hashCode() {
         return ("" + (int)this.value + this.hand.size() + dealerCard.getValue()).hashCode();
     }
+
+
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("(").append(this.size).append(", ").append(this.value).append(", ")
+                .append(this.dealerCard.getValue()).append("):").append(this.reward);
+        return s.toString();
+    }
 }

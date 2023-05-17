@@ -13,10 +13,16 @@ public class BlindQAgent extends QAgent {
     @Override
     public void react() {
         currentState = new BlindState(this.cards);
-        double maxQ = table.get(currentState).getActionValue();
-        double q = (1 - ALPHA) * latestAction.getActionValue() +
-                ALPHA * (currentState.getReward() + GAMMA * maxQ);
-        latestAction.setActionValue(q);
+        this.table.addNewState(currentState);
+        if (latestAction == null && this.score() == 21) {
+            this.table.updateReward(currentState, 100);
+        } else {
+            double maxQ = table.get(currentState).getActionValue();
+
+            double q = (1 - ALPHA) * latestAction.getActionValue() +
+                    ALPHA * (currentState.getReward() + GAMMA * maxQ);
+            latestAction.setActionValue(q);
+        }
     }
 
     /**
@@ -26,4 +32,6 @@ public class BlindQAgent extends QAgent {
     public String getName() {
         return "Blind Agent";
     }
+
+
 }

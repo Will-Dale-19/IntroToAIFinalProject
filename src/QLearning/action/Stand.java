@@ -8,7 +8,7 @@ public class Stand implements Action {
 
     public Stand(){
         this.action = 's';
-        this.actionValue =0.0;
+        this.actionValue = 1.0;
     }
 
 

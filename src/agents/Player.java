@@ -45,11 +45,6 @@ public class Player extends Agent {
 
     @Override
     public void react() {
-        if (!standing) {
-            System.out.println("Player was dealt a " + this.cards.get(this.cards.size() - 1));
-        } else {
-            System.out.println("Player is standing.");
-        }
     }
 
     @Override

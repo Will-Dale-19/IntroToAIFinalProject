@@ -6,7 +6,7 @@ public class Hit implements Action {
     double actionValue;
     public Hit(){
         this.action = 'h';
-        this.actionValue = 0.0;
+        this.actionValue = 1.0;
     }
 
     public char getAction(){

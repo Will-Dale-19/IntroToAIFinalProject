@@ -12,8 +12,9 @@ public abstract class State {
 
     public State(List<Card> hand) {
         this.hand = new LinkedList<>();
-        Collections.copy(this.hand, hand); // make a deep copy to keep states atomic
+        this.hand.addAll(hand); // make a deep copy to keep states atomic
         this.reward = 0;
+        calculateValue();
     }
 
     public double getValue() {
