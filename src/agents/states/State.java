@@ -2,9 +2,10 @@ package agents.states;
 
 import blackJack.Card;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class State {
+public abstract class State implements Serializable {
     protected double value;
     protected final List<Card> hand;
     protected int size;

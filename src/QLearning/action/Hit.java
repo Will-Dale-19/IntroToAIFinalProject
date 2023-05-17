@@ -1,6 +1,8 @@
 package QLearning.action;
 
-public class Hit implements Action {
+import java.io.Serializable;
+
+public class Hit implements Action, Serializable {
     char action;
 
     double actionValue;
@@ -18,5 +20,10 @@ public class Hit implements Action {
 
     public void setActionValue(double actionValue){
         this.actionValue = actionValue;
+    }
+
+    @Override
+    public String toString() {
+        return this.action + ":" + this.actionValue;
     }
 }

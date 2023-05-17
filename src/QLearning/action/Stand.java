@@ -26,4 +26,9 @@ public class Stand implements Action {
     public void setActionValue(double actionValue) {
         this.actionValue = actionValue;
     }
+
+    @Override
+    public String toString() {
+        return this.action + ":" + this.actionValue;
+    }
 }

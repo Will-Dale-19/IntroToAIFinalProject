@@ -1,14 +1,14 @@
 package QLearning.action;
 
 import agents.states.State;
-import blackJack.Deck;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import java.util.List;
 
-public class QTable<S extends State> {
+public class QTable<S extends State> implements Serializable {
     private final HashMap<S, List<Action>> qTable = new HashMap<>();
 
     public QTable() {

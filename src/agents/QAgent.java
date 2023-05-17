@@ -4,9 +4,10 @@ import QLearning.action.Action;
 import QLearning.action.QTable;
 import agents.states.State;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class QAgent extends Agent {
+public abstract class QAgent extends Agent implements Serializable {
     protected Action latestAction;
     protected State currentState;
     protected QTable<State> table;

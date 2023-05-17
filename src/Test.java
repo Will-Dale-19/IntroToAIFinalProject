@@ -3,6 +3,7 @@ import agents.*;
 import agents.states.BlindState;
 import blackJack.Blackjack;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -132,6 +133,33 @@ public class Test {
                 }
             }
             System.out.println(ai);
+            saveQAgent((QAgent) ai);
+            System.out.println(loadQAgent());
         }
+    }
+
+    public static void saveQAgent(QAgent ai) {
+        try(ObjectOutputStream destination = new ObjectOutputStream(new FileOutputStream("files/ai.bat"))){
+            destination.writeObject(ai);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static QAgent loadQAgent() {
+        QAgent ai;
+        try(ObjectInputStream source = new ObjectInputStream(new FileInputStream("files/ai.bat"))){
+            ai = (QAgent) source.readObject();
+            return ai;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
