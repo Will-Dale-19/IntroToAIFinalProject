@@ -6,6 +6,8 @@ import agents.states.BlindState;
 import agents.states.CompetitiveState;
 import blackJack.Card;
 
+import java.util.Comparator;
+
 public class CompetitiveQAgent extends QAgent {
     private Card dealerCard;
     public CompetitiveQAgent(double alpha, double gamma, double delta, double epsilon) {
@@ -19,7 +21,11 @@ public class CompetitiveQAgent extends QAgent {
         if (latestAction == null && this.score() == 21) {
             this.table.updateReward(currentState, 100);
         } else {
-            double maxQ = Math.max(table.get(currentState).stream().map(Action::getActionValue).toList());
+            double maxQ = table.get(currentState)
+                    .stream()
+                    .map(Action::getActionValue)
+                    .max(Double::compareTo).orElseThrow();
+            System.out.println(maxQ);
             double q = (1 - ALPHA) * latestAction.getActionValue() +
                     ALPHA * (currentState.getReward() + GAMMA * maxQ);
             latestAction.setActionValue(q);

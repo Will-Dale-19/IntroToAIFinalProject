@@ -22,6 +22,7 @@ public abstract class QAgent extends Agent {
     @Override
     public char takeTurn() {
         System.out.println("It's " + this.getName() + "'s turn.");
+        Action action = getAction(this.table.get(currentState));
         latestAction = action;
         if (!isStanding()) {
             if (action.getAction() == 'h') {
@@ -49,7 +50,7 @@ public abstract class QAgent extends Agent {
     @Override
     public void lose() {
         System.out.println(this.getName() + " lost!");
-        this.table.updateReward(this.currentState, -DELTA);
+        this.table.updateReward(this.currentState, -2*DELTA);
     }
 
     @Override
@@ -69,17 +70,16 @@ public abstract class QAgent extends Agent {
         return this.table.toString();
     }
 
-    protected double getActionValue(List<Action> actions) {
+    protected Action getAction(List<Action> actions) {
         Action action;
         if (Math.random() > EPSILON) {
-            action = this.table.get(currentState)
-                    .stream()
-                    .max((a1, a2) -> (int) (a1.getActionValue() - a2.getActionValue()))
-                    .orElseThrow();
+            action = actions
+                        .stream()
+                        .max((a1, a2) -> (int) (a1.getActionValue() - a2.getActionValue()))
+                        .orElseThrow();
         } else {
-            List<Action> tempActions = this.table.get(currentState);
-            action = tempActions.get((int) (Math.random() * actions.size()));
+            action = actions.get((int) (Math.random() * actions.size()));
         }
-        return action.getActionValue();
+        return action;
     }
 }

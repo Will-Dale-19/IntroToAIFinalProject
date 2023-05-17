@@ -1,13 +1,12 @@
 package agents;
 
+import QLearning.action.Action;
 import agents.states.BlindState;
 
 public class BlindQAgent extends QAgent {
 
     public BlindQAgent(double alpha, double gamma, double delta, double epsilon) {
         super(alpha, gamma, delta, epsilon);
-        this.currentState = new BlindState(this.cards);
-        this.table.addNewState(this.currentState);
     }
 
     @Override
@@ -17,10 +16,12 @@ public class BlindQAgent extends QAgent {
         if (latestAction == null && this.score() == 21) {
             this.table.updateReward(currentState, 100);
         } else {
-            double maxQ = table.get(currentState).getActionValue();
-
-            double q = (1 - ALPHA) * latestAction.getActionValue() +
-                    ALPHA * (currentState.getReward() + GAMMA * maxQ);
+            double maxQ = table.get(currentState)
+                    .stream()
+                    .map(Action::getActionValue)
+                    .max(Double::compareTo).orElseThrow();
+            double q = ((1 - ALPHA) * latestAction.getActionValue()) +
+                    (ALPHA * (currentState.getReward() + (GAMMA * maxQ)));
             latestAction.setActionValue(q);
         }
     }
@@ -33,5 +34,8 @@ public class BlindQAgent extends QAgent {
         return "Blind Agent";
     }
 
-
+    public void initializeState() {
+        this.currentState = new BlindState(this.cards);
+        this.table.addNewState(this.currentState);
+    }
 }

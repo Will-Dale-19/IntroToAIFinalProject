@@ -60,17 +60,18 @@ public class Blackjack {
                             System.out.println("\n" + agent.getName() + " got to 21!\n");
                             agent.setCanPlay(false);
                         }
+                        agent.react();
                         break;
                     case 's':
                         System.out.println("\n" + agent.getName() + " has chosen to stand.\n");
                         agent.setCanPlay(false);
                         agent.stand(true);
+                        agent.react();
                         break;
                     default:
                         break;
                 }
             }
-            agent.react();
         }
         if (this.agents.stream().allMatch(x -> x.isStanding() || x.score() >= 21 || !x.canPlay())) {
             this.dealer.printCards();

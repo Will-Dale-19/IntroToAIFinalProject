@@ -109,6 +109,8 @@ public class Test {
                 game.startGame();
                 if (ai instanceof CompetitiveQAgent) {
                     ((CompetitiveQAgent) ai).setDealerCard(game.getDealerCard());
+                } else if (ai instanceof BlindQAgent) {
+                    ((BlindQAgent) ai).initializeState();
                 }
                 boolean gamePlaying = true;
                 while (gamePlaying) {
