@@ -6,12 +6,13 @@ import agents.states.BlindState;
 import agents.states.CompetitiveState;
 import blackJack.Card;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class CompetitiveQAgent extends QAgent {
+public class CompetitiveQAgent extends QAgent implements Serializable {
     private Card dealerCard;
-    public CompetitiveQAgent(double alpha, double gamma, double delta, double epsilon) {
-        super(alpha, gamma, delta, epsilon);
+    public CompetitiveQAgent(boolean print, double alpha, double gamma, double delta, double epsilon) {
+        super(print, alpha, gamma, delta, epsilon);
     }
 
     @Override
@@ -25,7 +26,6 @@ public class CompetitiveQAgent extends QAgent {
                     .stream()
                     .map(Action::getActionValue)
                     .max(Double::compareTo).orElseThrow();
-            System.out.println(maxQ);
             double q = (1 - ALPHA) * latestAction.getActionValue() +
                     ALPHA * (currentState.getReward() + GAMMA * maxQ);
             latestAction.setActionValue(q);

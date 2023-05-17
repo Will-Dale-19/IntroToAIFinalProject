@@ -1,6 +1,6 @@
 import agents.Player;
+import agents.QAgent;
 import blackJack.Blackjack;
-import blackJack.Deck;
 
 import java.util.Scanner;
 
@@ -14,16 +14,19 @@ public class Main {
             Blackjack game;
             switch (numPlayers) {
                 case 1:
-                    game = new Blackjack(new Player("Player 1"));
+                    QAgent ai = Test.loadQAgent();
+                    ai.setPrint(true);
+                    game = new Blackjack(true, new Player(true, "Player 1"), ai);
+
                     break;
                 case 2:
-                    game = new Blackjack(new Player("Player 1"), new Player("Player 2"));
+                    game = new Blackjack(true, new Player(true, "Player 1"), new Player(true, "Player 2"));
                     break;
                 case 3:
-                    game = new Blackjack(new Player("Player 1"), new Player("Player 2"), new Player("Player 3"));
+                    game = new Blackjack(true, new Player(true, "Player 1"), new Player(true, "Player 2"), new Player(true, "Player 3"));
                     break;
                 default:
-                    game = new Blackjack(new Player("Player"));
+                    game = new Blackjack(true, new Player(true, "Player"));
             }
             game.startGame();
             boolean gamePlaying = true;

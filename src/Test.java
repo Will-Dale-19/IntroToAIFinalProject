@@ -11,7 +11,7 @@ public class Test {
     public static void main(String[] args) {
         boolean continueTesting = true;
         while (continueTesting) {
-            Blackjack game = new Blackjack();
+            Blackjack game = new Blackjack(false);
             int numEpochs = 0;
             Scanner in = new Scanner(System.in);
             boolean invalid = true;
@@ -96,15 +96,15 @@ public class Test {
             }
             switch (currAgentString) {
                 case "b", "blind":
-                    ai = new BlindQAgent(parameters[0], parameters[1], parameters[2], parameters[3]);
+                    ai = new BlindQAgent(false, parameters[0], parameters[1], parameters[2], parameters[3]);
                     game.addAgents(ai);
                     break;
                 case "c", "competitive":
-                    ai = new CompetitiveQAgent(parameters[0], parameters[1], parameters[2], parameters[3]);
+                    ai = new CompetitiveQAgent(false, parameters[0], parameters[1], parameters[2], parameters[3]);
                     game.addAgents(ai);
                     break;
                 default:
-                    ai = new Dealer();
+                    ai = new Dealer(false);
             }
             for (int i = 0; i < numEpochs; i++) {
                 game.startGame();
@@ -133,8 +133,11 @@ public class Test {
                 }
             }
             System.out.println(ai);
+            int numWins = ((QAgent) ai).getNumWins();
+            int totalGames = ((QAgent) ai).getTotalGames();
+            double winPercentage = (double) numWins / totalGames;
+            System.out.println("Out of " + numEpochs + " epochs, " + ai.getName() + " won " + (winPercentage * 100) + "% of the time.");
             saveQAgent((QAgent) ai);
-            System.out.println(loadQAgent());
         }
     }
 

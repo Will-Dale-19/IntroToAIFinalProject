@@ -9,7 +9,8 @@ public class Player extends Agent {
 
     private final String name;
 
-    public Player(String name) {
+    public Player(boolean print, String name) {
+        super(print);
         this.name = name;
     }
 

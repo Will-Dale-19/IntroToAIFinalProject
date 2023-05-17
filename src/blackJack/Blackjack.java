@@ -9,12 +9,14 @@ public class Blackjack {
     private Deck deck;
     private final ArrayList<Agent> agents = new ArrayList<>();
     private final Dealer dealer;
+    private boolean print;
 
-    public Blackjack(Agent... agents) {
+    public Blackjack(boolean print, Agent... agents) {
         this.deck = new Deck();
+        this.print = print;
         deck.shuffleDeck();
         this.agents.addAll(Arrays.asList(agents));
-        this.dealer = new Dealer();
+        this.dealer = new Dealer(print);
     }
 
     public void startGame() {
@@ -53,17 +55,23 @@ public class Blackjack {
                         agent.addCard(this.deck.dealTopCard());
                         agent.printCardDrawn();
                         if (agent.score() > 21) {
-                            System.out.println("\n" + agent.getName() + " went over 21!\n");
+                            if (print) {
+                                System.out.println("\n" + agent.getName() + " went over 21!\n");
+                            }
                             agent.setCanPlay(false);
                         }
                         if (agent.score() == 21) {
-                            System.out.println("\n" + agent.getName() + " got to 21!\n");
+                            if (print) {
+                                System.out.println("\n" + agent.getName() + " got to 21!\n");
+                            }
                             agent.setCanPlay(false);
                         }
                         agent.react();
                         break;
                     case 's':
-                        System.out.println("\n" + agent.getName() + " has chosen to stand.\n");
+                        if (print) {
+                            System.out.println("\n" + agent.getName() + " has chosen to stand.\n");
+                        }
                         agent.setCanPlay(false);
                         agent.stand(true);
                         agent.react();
@@ -83,7 +91,9 @@ public class Blackjack {
                     break;
                 case 's':
                     if (dealer.score() == 21) {
-                        System.out.println("The Dealer got to 21!");
+                        if (print) {
+                            System.out.println("The Dealer got to 21!");
+                        }
                     }
                     dealer.stand(true);
                     break;
@@ -102,21 +112,27 @@ public class Blackjack {
     }
 
     private void printAllCards() {
-        this.dealer.printCards();
-        for (Agent agent : agents) {
-            agent.printCards();
+        if (print) {
+            this.dealer.printCards();
+            for (Agent agent : agents) {
+                agent.printCards();
+            }
         }
     }
 
     private void printScore() {
-        System.out.println("\nDealer's score: " + this.dealer.score());
-        for (Agent agent : this.agents) {
-            System.out.println(agent.getName() + "'s score: " + agent.score());
+        if (print) {
+            System.out.println("\nDealer's score: " + this.dealer.score());
+            for (Agent agent : this.agents) {
+                System.out.println(agent.getName() + "'s score: " + agent.score());
+            }
         }
     }
 
     private void evaluateGame(Agent agent) {
-        System.out.println();
+        if (print) {
+            System.out.println();
+        }
         if (agent.score() == 21) {
             if (dealer.score() == 21) {
                 agent.tie();
@@ -124,23 +140,35 @@ public class Blackjack {
                 agent.win();
             }
         } else if (agent.score() > 21) {
-            System.out.println(agent.getName() + " busted!");
+            if (print) {
+                System.out.println(agent.getName() + " busted!");
+            }
             agent.lose();
         } else if (dealer.score() == 21) {
-            System.out.println("The Dealer has reached 21!");
+            if (print) {
+                System.out.println("The Dealer has reached 21!");
+            }
             agent.lose();
         } else if (dealer.score() > 21) {
-            System.out.println("The Dealer busted!");
+            if (print) {
+                System.out.println("The Dealer busted!");
+            }
             agent.win();
         } else {
             if (dealer.score() > agent.score()) {
-                System.out.println("The dealer's score is greater than " + agent.getName() + "'s score!");
+                if (print) {
+                    System.out.println("The dealer's score is greater than " + agent.getName() + "'s score!");
+                }
                 agent.lose();
             } else if (dealer.score() == agent.score()) {
-                System.out.println("The dealer's score is equal to " + agent.getName() + "'s score!");
+                if (print) {
+                    System.out.println("The dealer's score is equal to " + agent.getName() + "'s score!");
+                }
                 agent.tie();
             } else {
-                System.out.println("The dealer's score is less than " + agent.getName() + "'s score!");
+                if (print) {
+                    System.out.println("The dealer's score is less than " + agent.getName() + "'s score!");
+                }
                 agent.win();
             }
         }

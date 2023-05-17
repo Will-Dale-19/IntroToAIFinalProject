@@ -2,17 +2,20 @@ package agents;
 
 import blackJack.Card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Agent {
+public abstract class Agent implements Serializable {
 
     protected boolean standing;
     protected List<Card> cards;
     protected boolean canPlay;
+    protected boolean print;
 
-    public Agent() {
+    public Agent(boolean print) {
+        this.print = print;
         reset();
     }
 
@@ -71,5 +74,9 @@ public abstract class Agent {
         this.cards = new LinkedList<>();
         this.canPlay = true;
         this.standing = false;
+    }
+
+    public void setPrint(boolean print) {
+        this.print = print;
     }
 }

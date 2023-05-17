@@ -3,10 +3,12 @@ package agents;
 import QLearning.action.Action;
 import agents.states.BlindState;
 
-public class BlindQAgent extends QAgent {
+import java.io.Serializable;
 
-    public BlindQAgent(double alpha, double gamma, double delta, double epsilon) {
-        super(alpha, gamma, delta, epsilon);
+public class BlindQAgent extends QAgent implements Serializable {
+
+    public BlindQAgent(boolean print, double alpha, double gamma, double delta, double epsilon) {
+        super(print, alpha, gamma, delta, epsilon);
     }
 
     @Override
