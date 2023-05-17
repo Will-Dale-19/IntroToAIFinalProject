@@ -10,10 +10,10 @@ import java.util.List;
 
 public class QTable<S extends State> {
     private final HashMap<S, List<Action>> qTable = new HashMap<>();
-    private final int numUniqueCards = 13;
+    private final double EPSILON;
 
-    public QTable(){
-
+    public QTable(double epsilon){
+        this.EPSILON = epsilon;
     }
 
     public boolean contains(S object) {
@@ -33,9 +33,14 @@ public class QTable<S extends State> {
     }
 
     public Action get(S key) {
-        return this.qTable.get(key)
-                .stream()
-                .max((a1, a2) -> (int) (a1.getActionValue() - a2.getActionValue()))
-                .orElseThrow();
+        if (Math.random() > EPSILON) {
+            return this.qTable.get(key)
+                    .stream()
+                    .max((a1, a2) -> (int) (a1.getActionValue() - a2.getActionValue()))
+                    .orElseThrow();
+        } else {
+            List<Action> actions = this.qTable.get(key);
+            return actions.get((int) (Math.random() * actions.size()));
+        }
     }
 }
